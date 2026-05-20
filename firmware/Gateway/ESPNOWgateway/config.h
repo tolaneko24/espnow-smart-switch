@@ -35,19 +35,7 @@
 
 #define NUM_SLAVES 2
 
-// --- GPIO (ESP8266 NodeMCU) ---
-#if defined(ESP8266)
-#define relay1 5   // D1
-#define relay2 0   // D3
-#define relay3 12  // D6
-#define relay4 15  // D8
-
-#define switch1 4   // D2
-#define switch2 14  // D5
-#define switch3 13  // D7
-
 // --- GPIO (ESP32 DevKit — chỉnh theo board thực tế) ---
-#elif defined(ESP32)
 #define relay1 26
 #define relay2 27
 #define relay3 14
@@ -56,12 +44,14 @@
 #define switch1 32
 #define switch2 33
 #define switch3 25
-#endif
+#define switch4 22
 
 // --- Blynk virtual pins (local relay + switch sync) ---
 #define VPIN_LED_CONNECT 0
 #define VPIN_RELAY1 1
 #define VPIN_RELAY2 2
+#define VPIN_RELAY3 3
+#define VPIN_RELAY4 4
 
 // --- Timing ---
 #define SERIAL_BAUD                115200

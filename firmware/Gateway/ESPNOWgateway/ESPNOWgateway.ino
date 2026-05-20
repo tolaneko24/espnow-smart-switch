@@ -62,11 +62,13 @@
 #include "WiFiModule.h"
 #include "BlynkModule.h"
 #include "ESPNOWModule.h"
-#include "platform.h"
+#include <WiFi.h>
+#include <esp_now.h>
 
 bool lastState1 = HIGH;
 bool lastState2 = HIGH;
 bool lastState3 = HIGH;
+bool lastState4 = HIGH;
 
 unsigned long lastReconnectAttempt = 0;
 
@@ -97,6 +99,7 @@ void setup() {
     pinMode(switch1, INPUT_PULLUP);
     pinMode(switch2, INPUT_PULLUP);
     pinMode(switch3, INPUT_PULLUP);
+    pinMode(switch4, INPUT_PULLUP);
 
     // Khởi tạo ESP-NOW
     espNow.begin();
@@ -120,6 +123,9 @@ void loop() {
 
     checkSwitch(switch1, &lastState1, relay1, VPIN_RELAY1);
     checkSwitch(switch2, &lastState2, relay2, VPIN_RELAY2);
+    checkSwitch(switch3, &lastState3, relay3, VPIN_RELAY3);
+    checkSwitch(switch4, &lastState4, relay4, VPIN_RELAY4);
+
     checkMessage(&newMsg, lastMsg);
 
 }
@@ -133,7 +139,7 @@ void checkSwitch(int switchPin, bool *lastState, int relayPin, int vPin) {
             *lastState = currentState;
             bool newRelayState = !digitalRead(relayPin);
             digitalWrite(relayPin, newRelayState);
-            blynkVirtualWrite(vPin, newRelayState);
+            blynkVirtualWrite(vPin, newRelayState); //Hàm gửi dữ liệu lên Blynk
         }
     }
 }

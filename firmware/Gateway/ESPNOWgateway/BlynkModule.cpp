@@ -1,7 +1,8 @@
 #include "config.h"
 #include "BlynkModule.h"
 #include "WiFiModule.h"
-#include "platform.h"
+#include <WiFi.h>
+#include <esp_now.h>
 #include <BlynkSimpleEsp32_SSL.h>
 
 
@@ -24,7 +25,7 @@ void blynkVirtualWrite(int vPin, int value) {
 BLYNK_CONNECTED() {
     Serial.println("✅ Kết nối Blynk thành công!");
     led_connect.on();
-    Blynk.syncAll();  // Blynk Server gửi lại trạng thái mới nhất của all Virtual Pins (Vpin) về ESP8266
+    Blynk.syncAll();  // Blynk Server gửi lại trạng thái mới nhất của all Virtual Pins (Vpin) về ESP32
 }
 
 void checkMessage(bool *newMsg, message msg) {
@@ -43,10 +44,11 @@ BLYNK_WRITE(V4) { digitalWrite(relay4, param.asInt()); }
 
 BLYNK_WRITE(V5) { espNow.sendSlaveCommand(1, 1, param.asInt()); }
 BLYNK_WRITE(V6) { espNow.sendSlaveCommand(1, 2, param.asInt()); }
-BLYNK_WRITE(V7) { espNow.sendSlaveCommand(1, 3, param.asInt()); }
-BLYNK_WRITE(V8) { espNow.sendSlaveCommand(1, 4, param.asInt()); }
 
-BLYNK_WRITE(V9) { espNow.sendSlaveCommand(2, 1, param.asInt()); }
-BLYNK_WRITE(V10) { espNow.sendSlaveCommand(2, 2, param.asInt()); }
-BLYNK_WRITE(V11) { espNow.sendSlaveCommand(2, 3, param.asInt()); }
-BLYNK_WRITE(V12) { espNow.sendSlaveCommand(2, 4, param.asInt()); }
+BLYNK_WRITE(V7) { espNow.sendSlaveCommand(2, 1, param.asInt()); }
+BLYNK_WRITE(V8) { espNow.sendSlaveCommand(2, 2, param.asInt()); }
+
+// BLYNK_WRITE(V9) { espNow.sendSlaveCommand(2, 1, param.asInt()); }
+// BLYNK_WRITE(V10) { espNow.sendSlaveCommand(2, 2, param.asInt()); }
+// BLYNK_WRITE(V11) { espNow.sendSlaveCommand(2, 3, param.asInt()); }
+// BLYNK_WRITE(V12) { espNow.sendSlaveCommand(2, 4, param.asInt()); }

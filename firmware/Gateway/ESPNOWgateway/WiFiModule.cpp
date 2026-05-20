@@ -1,6 +1,7 @@
 #include "WiFiModule.h"
 #include "config.h"
-#include "platform.h"
+#include <WiFi.h>
+#include <esp_now.h>
 
 const char* ssid = WIFI_ROUTER_SSID;
 const char* pass = WIFI_ROUTER_PASS;

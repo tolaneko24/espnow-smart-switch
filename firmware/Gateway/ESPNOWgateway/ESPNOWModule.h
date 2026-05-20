@@ -1,8 +1,9 @@
 #ifndef ESPNOWMODULE_H
 #define ESPNOWMODULE_H
 
-#include "platform.h"
 #include <WiFi.h>
+#include <esp_now.h>
+
 //Định nghĩa struct message
 struct message {
     int id;
