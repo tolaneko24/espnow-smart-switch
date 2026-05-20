@@ -1,632 +1,246 @@
-# \# ESP-NOW Smart Switch
+# ESP-NOW Smart Switch
+Real-time Wireless Smart Switch Network using ESP-NOW on ESP32/ESP8266
+
+---
+
+## Overview
+
+This project implements a real-time wireless control network based on the ESP-NOW protocol using ESP32/ESP8266 microcontrollers.
+
+The system is designed for smart switch and embedded IoT applications where:
+- low latency,
+- lightweight communication,
+- low cost,
+- and decentralized wireless control
+
+are required.
+
+Unlike traditional WiFi smart switches that depend heavily on cloud communication, this system allows direct peer-to-peer communication between nodes through ESP-NOW while still supporting optional cloud connectivity through Blynk.
+
+The architecture is inspired by commercial smart home systems such as:
+- Zigbee Smart Switch
+- Aqara
+- Philips Hue
+- Tuya Smart Switch
+
+but implemented using ESP32/ESP8266 hardware and ESP-NOW protocol.
+
+---
+
+## Objectives
+
+- Build a real-time wireless control network.
+- Reduce latency compared to cloud-only systems.
+- Support multiple relay nodes.
+- Implement ACK and retransmission mechanisms.
+- Evaluate communication quality and reliability.
+- Study the feasibility of ESP-NOW for smart home applications.
+
+---
+
+## System Architecture
+
+```text
+Mobile App / Blynk Cloud
+            |
+         WiFi Router
+            |
+      ESP32 Gateway
+            |
+      =================
+      ||    ESP-NOW  ||
+      =================
+        |      |      
+     Relay1 Relay2 
+```
+
+### Topology
+- Star topology
+- Optional multi-hop repeater extension
+
+---
+
+## Features
+
+### Current Features
+- ESP-NOW peer-to-peer communication
+- Real-time ON/OFF control
+- Multi-node support
+- Relay control
+- Device addressing
+- ACK response
+- Retry transmission
+- WiFi + ESP-NOW coexistence
+- Blynk integration
+- RSSI monitoring
+
+### Future Features
+- ESP-NOW mesh / multi-hop
+- OTA firmware update
+- AES encryption
+- Local web dashboard
+- MQTT integration
+- Node-RED monitoring
+
+---
+
+## Technologies Used
+
+| Category | Technology |
+|---|---|
+| MCU | ESP32 / ESP8266 |
+| Wireless Protocol | ESP-NOW |
+| Cloud Platform | Blynk |
+| Programming Language | C++ |
+| IDE | Arduino IDE / PlatformIO |
+| Communication | WiFi + ESP-NOW |
+| Version Control | Git + GitHub |
+
+---
+
+## Project Structure
+
+```text
+espnow-smart-switch/
+│
+├── firmware/
+│   ├── gateway/
+│   ├── relay_node/
+│   └── repeater_node/
+│
+├── hardware/
+│   ├── schematic/
+│   └── pcb/
+│
+├── docs/
+│   ├── report/
+│   └── images/
+│
+├── README.md
+└── .gitignore
+```
+
+---
 
-# 
+## Hardware Requirements
 
-# Hệ thống mạng điều khiển không dây thời gian thực sử dụng ESP-NOW trên ESP32/ESP8266 dành cho ứng dụng nhà thông minh và hệ thống nhúng IoT.
+### Gateway
+- ESP32 DevKit V1
+- WiFi connection
+- External power supply
 
-# 
+### Relay Node
+- ESP8266 
+- Relay module
+- External power supply
 
-# \---
+---
 
-# 
+## Communication Flow
 
-# \## 📌 Overview
+1. User sends command from mobile application.
+2. Gateway receives command through WiFi/Blynk.
+3. Gateway forwards command using ESP-NOW.
+4. Relay node executes command.
+5. Relay node sends ACK response.
+6. Gateway updates device status.
 
-# 
+---
 
-# Dự án xây dựng một hệ thống điều khiển thiết bị không dây sử dụng giao thức ESP-NOW nhằm giảm độ trễ truyền lệnh, tăng khả năng hoạt động realtime và giảm phụ thuộc vào Cloud trong các hệ thống Smart Home.
+## Performance Evaluation
 
-# 
+The following parameters are evaluated:
 
-# Hệ thống cho phép:
+- End-to-end latency
+- ACK response time
+- Packet delivery ratio
+- Packet loss
+- RSSI vs distance
+- Power consumption
+- Multi-hop performance
 
-# 
+---
 
-# \* Điều khiển relay không dây.
+## Experimental Metrics
 
-# \* Giao tiếp thời gian thực giữa các node.
+| Parameter | Target |
+|---|---|
+| Control latency | < 50 ms |
+| ACK response | < 50 ms |
+| Packet success rate | > 99% |
+| Indoor range | > 20 m |
+| Outdoor range | > 100 m |
 
-# \* Đồng bộ trạng thái thiết bị.
+---
 
-# \* Kết nối Blynk Cloud để điều khiển từ xa.
+## Advantages
 
-# \* Hỗ trợ ACK và retransmission.
+- Low communication latency
+- Lightweight protocol
+- No router dependency between nodes
+- Low deployment cost
+- Suitable for embedded systems
+- Real-time communication
 
-# \* Khả năng mở rộng multi-node và multi-hop.
+---
 
-# 
+## Limitations
 
-# Dự án được phát triển như một đồ án môn học/hệ thống nhúng với định hướng mô phỏng kiến trúc của các hệ Smart Home thương mại như Zigbee Smart Switch.
+- Limited ESP-NOW payload size
+- Channel synchronization required
+- Not a native full mesh protocol
+- Limited scalability compared to Zigbee
 
-# 
+---
 
-# \---
+## Comparison with Commercial Systems
 
-# 
+| System       | Protocol  | Gateway  | Mesh         | Cloud    |
+|--------------|-----------|----------|--------------|----------|
+| Zigbee       | Zigbee    | Yes      | Yes          | Optional |
+| Tuya WiFi    | WiFi      | No       | No           | Yes      |
+| This Project | ESP-NOW   | Yes      | Experimental | Optional |
 
-# \# 🎯 Objectives
+---
 
-# 
+## Research Direction
 
-# \* Xây dựng mạng điều khiển không dây realtime bằng ESP-NOW.
+Potential future research:
+- ESP-NOW mesh routing
+- Dynamic node discovery
+- Sleep scheduling
+- Energy optimization
+- Industrial wireless control
+- Hybrid ESP-NOW + MQTT systems
 
-# \* Đánh giá độ trễ truyền lệnh và độ ổn định hệ thống.
+---
 
-# \* So sánh kiến trúc Star và Mesh.
+## Team Members
 
-# \* Kết hợp ESP-NOW với nền tảng IoT Cloud.
+| Member | Responsibility |
+|---|---|
+| Member 1 |             |
 
-# \* Thiết kế hệ thống có khả năng mở rộng.
 
-# 
+---
 
-# \---
+## References
 
-# 
+1. Espressif ESP-NOW Documentation  
+2. ESP-IDF Programming Guide  
+3. Blynk IoT Platform  
+4. Zigbee Smart Home Architecture  
+5. Real-time Wireless Embedded Systems Research
 
-# \# 🧠 System Architecture
+---
 
-# 
+## License
 
-# ```text
+This project is developed for educational and research purposes.
+---
 
-# Mobile App (Blynk)
+## Author
+Embedded Systems Project  
+Faculty of Electrical and Electronics Engineering
 
-# &#x20;       │
-
-# &#x20;       ▼
-
-# &#x20;  WiFi Router
-
-# &#x20;       │
-
-# &#x20;       ▼
-
-# &#x20;ESP32 Gateway
-
-# &#x20; (WiFi + ESP-NOW)
-
-# &#x20;       │
-
-# &#x20;┌──────┼──────┐
-
-# &#x20;▼      ▼      ▼
-
-# Node1  Node2  Node3
-
-# Relay  Relay  Relay
-
-# ```
-
-# 
-
-# \---
-
-# 
-
-# \# ⚙️ Main Features
-
-# 
-
-# \## Core Features
-
-# 
-
-# \* ESP-NOW peer-to-peer communication
-
-# \* Realtime relay control
-
-# \* ACK response
-
-# \* Retransmission mechanism
-
-# \* Device addressing
-
-# \* Device pairing
-
-# \* Multiple node management
-
-# \* WiFi + ESP-NOW coexistence
-
-# \* Blynk realtime dashboard
-
-# 
-
-# \---
-
-# 
-
-# \## Advanced Features
-
-# 
-
-# \* Multi-hop repeater
-
-# \* ESP-NOW mesh experiment
-
-# \* OTA firmware update
-
-# \* AES encryption
-
-# \* Deep sleep optimization
-
-# \* RSSI monitoring
-
-# \* Packet loss measurement
-
-# 
-
-# \---
-
-# 
-
-# \# 🛠 Hardware Used
-
-# 
-
-# | Hardware        | Description       |
-
-# | --------------- | ----------------- |
-
-# | ESP32 DevKit V1 | Gateway node      |
-
-# | ESP8266/ESP32   | Relay node        |
-
-# | Relay Module    | AC load switching |
-
-# | Router WiFi     | Cloud connection  |
-
-# | Power Supply    | 5V system power   |
-
-# 
-
-# \---
-
-# 
-
-# \# 💻 Software \& Technologies
-
-# 
-
-# | Technology        | Purpose                            |
-
-# | ----------------- | ---------------------------------- |
-
-# | ESP-NOW           | Low-latency wireless communication |
-
-# | WiFi              | Cloud connectivity                 |
-
-# | Blynk IoT         | Mobile dashboard                   |
-
-# | Arduino Framework | Firmware development               |
-
-# | PlatformIO        | Project management                 |
-
-# | GitHub            | Version control                    |
-
-# 
-
-# \---
-
-# 
-
-# \# 📂 Project Structure
-
-# 
-
-# ```text
-
-# espnow-smart-switch/
-
-# │
-
-# ├── firmware/
-
-# │   ├── gateway/
-
-# │   │   ├── src/
-
-# │   │   ├── include/
-
-# │   │   └── platformio.ini
-
-# │   │
-
-# │   ├── relay\_node/
-
-# │   │   ├── src/
-
-# │   │   └── include/
-
-# │   │
-
-# │   └── repeater\_node/
-
-# │
-
-# ├── docs/
-
-# │   ├── report/
-
-# │   ├── images/
-
-# │   └── presentation/
-
-# │
-
-# ├── hardware/
-
-# │   ├── schematic/
-
-# │   └── pcb/
-
-# │
-
-# ├── README.md
-
-# └── .gitignore
-
-# ```
-
-# 
-
-# \---
-
-# 
-
-# \# 🚀 Getting Started
-
-# 
-
-# \## 1. Clone Repository
-
-# 
-
-# ```bash
-
-# git clone https://github.com/NgvTrQuy/espnow-smart-switch.git
-
-# ```
-
-# 
-
-# \---
-
-# 
-
-# \## 2. Open Project
-
-# 
-
-# Using:
-
-# 
-
-# \* VSCode
-
-# \* PlatformIO Extension
-
-# 
-
-# \---
-
-# 
-
-# \## 3. Configure WiFi \& Blynk
-
-# 
-
-# Edit:
-
-# 
-
-# ```cpp
-
-# config.h
-
-# ```
-
-# 
-
-# ```cpp
-
-# \#define WIFI\_SSID "your\_ssid"
-
-# \#define WIFI\_PASS "your\_password"
-
-# 
-
-# \#define BLYNK\_TEMPLATE\_ID "..."
-
-# \#define BLYNK\_AUTH\_TOKEN "..."
-
-# ```
-
-# 
-
-# \---
-
-# 
-
-# \## 4. Upload Firmware
-
-# 
-
-# Select correct board:
-
-# 
-
-# \* ESP32 Dev Module
-
-# \* NodeMCU ESP8266
-
-# 
-
-# Then upload firmware.
-
-# 
-
-# \---
-
-# 
-
-# \# 📡 Communication Flow
-
-# 
-
-# \## ESP-NOW Transmission
-
-# 
-
-# ```text
-
-# Gateway
-
-# &#x20;  │
-
-# &#x20;  ├── Send command
-
-# &#x20;  │
-
-# &#x20;  ▼
-
-# Relay Node
-
-# &#x20;  │
-
-# &#x20;  ├── Execute relay
-
-# &#x20;  ├── Send ACK
-
-# &#x20;  │
-
-# &#x20;  ▼
-
-# Gateway receives confirmation
-
-# ```
-
-# 
-
-# \---
-
-# 
-
-# \# 📊 Performance Metrics
-
-# 
-
-# The project evaluates:
-
-# 
-
-# \* Command latency
-
-# \* ACK response time
-
-# \* Packet delivery ratio
-
-# \* RSSI
-
-# \* Packet loss
-
-# \* Effect of transmission distance
-
-# \* Effect of number of hops
-
-# 
-
-# \---
-
-# 
-
-# \# 🔒 Security
-
-# 
-
-# ESP-NOW supports:
-
-# 
-
-# \* Peer authentication
-
-# \* AES encryption
-
-# \* MAC-based addressing
-
-# 
-
-# Future work includes:
-
-# 
-
-# \* Dynamic pairing
-
-# \* Secure provisioning
-
-# \* Key management
-
-# 
-
-# \---
-
-# 
-
-# \# 🌐 Comparison with Commercial Systems
-
-# 
-
-# | System       | Communication | Topology         |
-
-# | ------------ | ------------- | ---------------- |
-
-# | Tuya WiFi    | WiFi          | Star             |
-
-# | Aqara        | Zigbee        | Mesh             |
-
-# | Philips Hue  | Zigbee        | Mesh             |
-
-# | This Project | ESP-NOW       | Star / Multi-hop |
-
-# 
-
-# \---
-
-# 
-
-# \# 📈 Advantages
-
-# 
-
-# \* Very low latency
-
-# \* No Internet required for local control
-
-# \* Lower cost than Zigbee modules
-
-# \* Fast response
-
-# \* Easy firmware customization
-
-# \* Suitable for embedded learning and research
-
-# 
-
-# \---
-
-# 
-
-# \# ⚠️ Limitations
-
-# 
-
-# \* ESP-NOW ecosystem is smaller than Zigbee
-
-# \* No native routing stack
-
-# \* Limited scalability compared to Zigbee Mesh
-
-# \* WiFi coexistence requires channel synchronization
-
-# 
-
-# \---
-
-# 
-
-# \# 🔬 Future Development
-
-# 
-
-# \* Full ESP-NOW mesh routing
-
-# \* Home Assistant integration
-
-# \* MQTT gateway
-
-# \* Node-RED dashboard
-
-# \* Custom mobile application
-
-# \* Energy optimization
-
-# \* PCB design
-
-# \* Industrial enclosure
-
-# 
-
-# \---
-
-# 
-
-# \# 👨‍💻 Team Members
-
-# 
-
-# | Member           | Responsibility                    |
-
-# | ---------------- | --------------------------------- |
-
-# | Nguyen Trong Quy |                                   |
-
-# | Le Dang Quang    |                                   |
-
-# | Bui Thanh Tung   | 				       |
-
-# 
-
-# \---
-
-# 
-
-# \# 📚 References
-
-# 
-
-# \* Espressif ESP-NOW Documentation
-
-# \* ESP-IDF Programming Guide
-
-# \* Blynk IoT Platform
-
-# \* Zigbee Smart Home Architecture
-
-# \* MQTT Protocol
-
-# 
-
-# \---
-
-# 
-
-# \# 📄 License
-
-# 
-
-# This project is developed for educational and research purposes.
-
-# 
-
-# \---
-
-# 
-
-# \# ⭐ Acknowledgements
-
-# 
-
-# Special thanks to:
-
-# 
-
-# \* Espressif Systems
-
-# \* Arduino Community
-
-# \* PlatformIO
-
-# \* Open-source IoT developers
-
-
-
+2026
