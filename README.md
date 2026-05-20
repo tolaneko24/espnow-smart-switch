@@ -50,8 +50,8 @@ Mobile App / Blynk Cloud
       =================
       ||    ESP-NOW  ||
       =================
-        |      |      |
-     Relay1 Relay2 Relay3
+        |      |      
+     Relay1 Relay2 
 ```
 
 ### Topology
@@ -127,10 +127,10 @@ espnow-smart-switch/
 ### Gateway
 - ESP32 DevKit V1
 - WiFi connection
-- USB power supply
+- External power supply
 
 ### Relay Node
-- ESP8266 / ESP32
+- ESP8266 
 - Relay module
 - External power supply
 
@@ -166,7 +166,7 @@ The following parameters are evaluated:
 | Parameter | Target |
 |---|---|
 | Control latency | < 50 ms |
-| ACK response | < 100 ms |
+| ACK response | < 50 ms |
 | Packet success rate | > 99% |
 | Indoor range | > 20 m |
 | Outdoor range | > 100 m |
@@ -195,11 +195,11 @@ The following parameters are evaluated:
 
 ## Comparison with Commercial Systems
 
-| System | Protocol | Gateway | Mesh | Cloud |
-|---|---|---|---|---|
-| Zigbee | Zigbee | Required | Yes | Optional |
-| Tuya WiFi | WiFi | No | No | Yes |
-| This Project | ESP-NOW | Optional | Experimental | Optional |
+| System       | Protocol  | Gateway  | Mesh         | Cloud    |
+|--------------|-----------|----------|--------------|----------|
+| Zigbee       | Zigbee    | Yes      | Yes          | Optional |
+| Tuya WiFi    | WiFi      | No       | No           | Yes      |
+| This Project | ESP-NOW   | Yes      | Experimental | Optional |
 
 ---
 
