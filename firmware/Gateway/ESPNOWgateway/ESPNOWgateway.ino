@@ -5,7 +5,7 @@
  * @date    2026
  *
  * @project HỆ THỐNG MẠNG ĐIỀU KHIỂN KHÔNG DÂY THỜI GIAN THỰC
- *          SỬ DỤNG ESP-NOW TRÊN ESP32
+ *          SỬ DỤNG ESP-NOW TRÊN ESP32&ESP8266
  *
  * @description
  * Gateway trung tâm cho hệ thống điều khiển không dây sử dụng ESP-NOW.
@@ -73,18 +73,18 @@ bool lastState4 = HIGH;
 unsigned long lastReconnectAttempt = 0;
 
 void setup() {
-    Serial.begin(115200);
-    delay(50);
+    Serial.begin(SERIAL_BAUD);
+    delay(SETUP_DELAY_MS);
     Serial.println("\n=========ESPNOW SERVER========\n");
 
     // Kết nối WiFi
     connectWiFi();
-    delay(50);
+    delay(SETUP_DELAY_MS);
  
 
     // Khởi tạo Blynk
     beginBlynk();
-    delay(50);
+    delay(SETUP_DELAY_MS);
 
     // Khởi tạo relay và switch
     pinMode(relay1, OUTPUT);
@@ -112,7 +112,7 @@ void setup() {
 
 void loop() {
     if (WiFi.status() != WL_CONNECTED) {
-        if (millis() - lastReconnectAttempt > 5000) {
+        if (millis() - lastReconnectAttempt > WIFI_RECONNECT_INTERVAL_MS) {
             Serial.println("⚠️ Mất kết nối WiFi. Thử lại...");
             connectWiFi();
             lastReconnectAttempt = millis();
@@ -134,7 +134,7 @@ void checkSwitch(int switchPin, bool *lastState, int relayPin, int vPin) {
     bool currentState = digitalRead(switchPin);
 
     if (currentState != *lastState) {
-        delay(50);
+        delay(SWITCH_DEBOUNCE_MS);
         if (digitalRead(switchPin) == currentState) {
             *lastState = currentState;
             bool newRelayState = !digitalRead(relayPin);

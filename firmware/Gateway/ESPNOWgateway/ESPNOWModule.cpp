@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include "config.h"
 #include "ESPNOWModule.h"
+#include "WiFiModule.h"
 
 ESPNOW espNow;
 
@@ -12,18 +13,6 @@ uint8_t* slaveMACs[] = {slave1MAC, slave2MAC};
 //Biến status message
 message lastMsg;      // Lưu dữ liệu nhận mới nhất
 bool newMsg = false; 
-
-void printWiFiStatus() {
-    switch (WiFi.status()) {
-        case WL_IDLE_STATUS: Serial.println("WiFi đang khởi động..."); break;
-        case WL_NO_SSID_AVAIL: Serial.println("Không tìm thấy SSID!"); break;
-        case WL_CONNECTED: Serial.println("✅ Đã kết nối WiFi!"); break;
-        case WL_CONNECT_FAILED: Serial.println("❌ Kết nối thất bại!"); break;
-        case WL_CONNECTION_LOST: Serial.println("⚠️ Mất kết nối!"); break;
-        case WL_DISCONNECTED: Serial.println("📴 Đã ngắt kết nối!"); break;
-        default: Serial.println("Không rõ trạng thái."); break;
-    }
-}
 
 // 🟢 Khởi tạo ESP-NOW (Server)
 void ESPNOW::begin() {

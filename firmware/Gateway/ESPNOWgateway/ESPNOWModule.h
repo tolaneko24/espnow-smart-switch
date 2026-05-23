@@ -32,7 +32,7 @@ extern uint8_t slave1MAC[];
 extern uint8_t slave2MAC[];
 extern uint8_t* slaveMACs[];
 
-void printWiFiStatus();
+//void printWiFiStatus();
 
 
 void OnDataRecv(const esp_now_recv_info_t *info,

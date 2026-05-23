@@ -6,5 +6,5 @@ extern const char* pass;
 
 void connectWiFi();
 bool checkWiFi(int timeout);
-
+void printWiFiStatus();
 #endif

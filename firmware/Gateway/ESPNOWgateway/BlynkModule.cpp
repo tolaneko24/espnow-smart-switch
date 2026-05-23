@@ -42,7 +42,7 @@ BLYNK_WRITE(V2) { digitalWrite(relay2, param.asInt()); }
 BLYNK_WRITE(V3) { digitalWrite(relay3, param.asInt()); }
 BLYNK_WRITE(V4) { digitalWrite(relay4, param.asInt()); }
 
-BLYNK_WRITE(V5) { espNow.sendSlaveCommand(1, 1, param.asInt()); }
+BLYNK_WRITE(V5) { espNow.sendSlaveCommand(1, 1, param.asInt()); }  //Blynk gửi lệnh V5 đến Slave1 Relay1
 BLYNK_WRITE(V6) { espNow.sendSlaveCommand(1, 2, param.asInt()); }
 
 BLYNK_WRITE(V7) { espNow.sendSlaveCommand(2, 1, param.asInt()); }
