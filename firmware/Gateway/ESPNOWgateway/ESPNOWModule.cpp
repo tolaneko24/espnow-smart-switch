@@ -1,7 +1,7 @@
 #include <Arduino.h>
+#include "WiFiModule.h"
 #include "config.h"
 #include "ESPNOWModule.h"
-#include "WiFiModule.h"
 
 ESPNOW espNow;
 
@@ -25,8 +25,10 @@ void ESPNOW::begin() {
 
     // 
     Serial.println("===== WiFi Channel Info =====");
-    Serial.printf("STA Channel: %d Status: %d\n", WiFi.channel(),WiFi.status());  // Kênh của WiFi STA (kết nối router)
-    Serial.printf("AP Channel : %d | IP Address: %s\n", WiFi.channel(), WiFi.softAPIP().toString().c_str());// Hàm nội bộ trả về kênh hiện tại của AP
+    Serial.printf("STA Channel:%d Status:%d MAC:%s\n", WiFi.channel(), WiFi.status(), WiFi.macAddress().c_str());
+
+    Serial.printf("AP  Channel:%d IP:%s MAC:%s\n",WiFi.channel(),WiFi.softAPIP().toString().c_str(), WiFi.softAPmacAddress().c_str());
+
     //Serial.printf("Num Slave Connect AP: %d\n", WiFi.softAPgetStationNum());                  // Số client đang kết nối 
     Serial.println("=============================");
 
@@ -101,7 +103,7 @@ void OnDataRecv(const esp_now_recv_info_t *info,
             // MAC của thiết bị gửi
             const uint8_t *mac = info->src_addr;
             (void)mac;  
-
+            Serial.println("ESP32 nhận state từ slave");
             // Kiểm tra kích thước dữ liệu đúng với struct message
             if (len == (int)sizeof(message)) {
                 memcpy(&lastMsg, data, sizeof(message));

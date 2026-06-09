@@ -13,16 +13,13 @@ void setup() {
     // Khởi tạo các relay và switch
     pinMode(relay1, OUTPUT);
     pinMode(relay2, OUTPUT);
-    pinMode(relay3, OUTPUT);
-    pinMode(relay4, OUTPUT);
     pinMode(switch1, INPUT_PULLUP);
     pinMode(switch2, INPUT_PULLUP);
 
     // Tắt relay ban đầu
     digitalWrite(relay1, HIGH);
     digitalWrite(relay2, HIGH);
-    digitalWrite(relay3, HIGH);
-    digitalWrite(relay4, HIGH);
+
 
     // Kết nối WiFi Gateway
     espSlave.connectWiFi();
@@ -36,21 +33,29 @@ void setup() {
 }
 
 // Kiểm tra trạng thái của switch và đồng bộ trạng thái relay và server
-void checkSwitch(int switchPin, bool *lastState, int relayPin, uint8_t relay) {
-    bool currentState = digitalRead(switchPin);
+void checkSwitch(int touchPin, bool *lastState, int relayPin, uint8_t relay) {
+    static unsigned long lastTouchTime[10] = {0};
 
-    if (currentState != *lastState) {
-        delay(50);
-        if (digitalRead(switchPin) == currentState) {
-            *lastState = currentState;
+    bool currentState = digitalRead(touchPin);
 
-            // Đảo trạng thái relay
+    // Phát hiện cạnh lên
+    if (currentState == HIGH && *lastState == LOW) {
+
+        // Chống nhiễu, chống chạm liên tiếp
+        if (millis() - lastTouchTime[relay] > 300) {
+
             bool newRelayState = !digitalRead(relayPin);
+
             digitalWrite(relayPin, newRelayState);
-            Serial.printf("Switch%d -> %d ", relay, newRelayState);
+
+            Serial.printf("Touch%d -> %d\n", relay, newRelayState);
             espSlave.sendServerState(relay, newRelayState);
+
+            lastTouchTime[relay] = millis();
         }
     }
+
+    *lastState = currentState;
 }
 
 void loop() {

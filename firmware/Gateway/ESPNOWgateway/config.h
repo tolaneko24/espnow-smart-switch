@@ -7,8 +7,8 @@
 //#define WIFI_ROUTER_SSID  "Tra My"
 //#define WIFI_ROUTER_PASS  "tramy2013"
 
-#define WIFI_ROUTER_SSID  "Tro T4"
-#define WIFI_ROUTER_PASS  "123456789"
+#define WIFI_ROUTER_SSID  "Tra My"
+#define WIFI_ROUTER_PASS  "tramy2013"
 
 // --- SoftAP (ESP-NOW gateway) ---
 #define GATEWAY_AP_SSID   "ESP_SERVER"
@@ -18,20 +18,16 @@
 /*#define BLYNK_TEMPLATE_ID "TMPL6nd9r6hO-"
 #define BLYNK_TEMPLATE_NAME "LED"
 #define BLYNK_AUTH_TOKEN "CRGfe2KmZLDV_KLCcwj0q-0y4Vt01eeA"*/
-#define BLYNK_TEMPLATE_ID   "TMPL6u0DcNYuR"
-#define BLYNK_TEMPLATE_NAME "LED"
-#define BLYNK_AUTH_TOKEN    "x_nPkL_Ufq9CuAQpJQxtP0A4Ivw7C5ia" // quytramy
+#define BLYNK_TEMPLATE_ID "TMPL6BjjVAi5R"
+#define BLYNK_TEMPLATE_NAME "Đo điện"
+#define BLYNK_AUTH_TOKEN "a3p7snHheCTSHe_G7ey50x5YqQcEUE_B"
 
 // --- Server MAC ---
-//[ESP-NOW] Device Server MAC: EC:E3:34:DA:85:44
-
+//[ESP-NOW] Device Server MAC: 8c:94:df:47:71:a4  
 
 // --- Slave MAC ---
-//uint8_t slaveMAC3[] = {0xC8, 0xC9, 0xA3, 0x25, 0x68, 0x25};
-//uint8_t slaveMAC4[] = {0xC8, 0xC9, 0xA3, 0x25, 0x68, 0x25};
-#define SLAVE1_MAC_INIT {0xC8, 0xC9, 0xA3, 0x25, 0x68, 0x25}
-//#define SLAVE1_MAC_INIT {0x24, 0x4C, 0xAB, 0x56, 0x23, 0x79}
-#define SLAVE2_MAC_INIT {0xC9, 0xC9, 0xA3, 0x25, 0x68, 0x25}
+#define SLAVE1_MAC_INIT {0xa0, 0x20, 0xa6, 0x16, 0xe7, 0x65}
+#define SLAVE2_MAC_INIT  {0xc8, 0xc9, 0xa3, 0x25, 0x68, 0x25}
 
 #define NUM_SLAVES 2
 

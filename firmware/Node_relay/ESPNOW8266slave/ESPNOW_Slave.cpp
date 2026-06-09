@@ -73,7 +73,8 @@ void ESPNOW_Slave::sendData(message &data) {
     // Hiển thị dữ liệu gửi đến Server
     Serial.printf("[ESP-NOW] 📤 Slave%d Relay:%d Cmd:%d ", data.id, data.relay, data.command);
 
-    int result = esp_now_send(serverMAC, (uint8_t *)&data, sizeof(data));
+   int result = esp_now_send(serverMAC, (uint8_t *)&data, sizeof(data));
+
 // Kiểm tra kết quả gửi dữ liệu
     if (result == 0) {
         Serial.println("✅ Data sent (callback pending)");
@@ -86,6 +87,7 @@ void ESPNOW_Slave::sendData(message &data) {
 
 // Gửi trạng thái đến Server
 void ESPNOW_Slave::sendServerState(uint8_t relay, uint8_t command) {
+      Serial.println("CALL sendServerState");
     message msg;
     msg.relay = relay;
     msg.command = command;
@@ -101,13 +103,12 @@ void OnDataRecv(uint8_t *mac, uint8_t *incomingData, uint8_t len) {
     }
 
     memcpy(&recvData, incomingData, sizeof(message));
-    Serial.printf("[ESP-NOW] 📩 Relay: %d | Cmd: %d\n", recvData.relay, recvData.command);// bật khi debug vì gây delay
+    Serial.printf("[ESP-NOW] 📩 Relay: %d | Cmd: %d\n", recvData.relay, recvData.command);
 
     switch (recvData.relay) {
         case 1: digitalWrite(relay1, recvData.command); break;
         case 2: digitalWrite(relay2, recvData.command); break;
-        case 3: digitalWrite(relay3, recvData.command); break;
-        case 4: digitalWrite(relay4, recvData.command); break;
+
     }
 }
 

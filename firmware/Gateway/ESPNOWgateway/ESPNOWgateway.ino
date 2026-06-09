@@ -87,19 +87,19 @@ void setup() {
     delay(SETUP_DELAY_MS);
 
     // Khởi tạo relay và switch
-    pinMode(relay1, OUTPUT);
-    pinMode(relay2, OUTPUT);
-    pinMode(relay3, OUTPUT);
-    pinMode(relay4, OUTPUT);
-    digitalWrite(relay1, HIGH);
-    digitalWrite(relay2, HIGH);
-    digitalWrite(relay3, HIGH);
-    digitalWrite(relay4, HIGH);
+    // pinMode(relay1, OUTPUT);
+    // pinMode(relay2, OUTPUT);
+    // pinMode(relay3, OUTPUT);
+    // pinMode(relay4, OUTPUT);
+    // digitalWrite(relay1, HIGH);
+    // digitalWrite(relay2, HIGH);
+    // digitalWrite(relay3, HIGH);
+    // digitalWrite(relay4, HIGH);
 
-    pinMode(switch1, INPUT_PULLUP);
-    pinMode(switch2, INPUT_PULLUP);
-    pinMode(switch3, INPUT_PULLUP);
-    pinMode(switch4, INPUT_PULLUP);
+    // pinMode(switch1, INPUT_PULLUP);
+    // pinMode(switch2, INPUT_PULLUP);
+    // pinMode(switch3, INPUT_PULLUP);
+    // pinMode(switch4, INPUT_PULLUP);
 
     // Khởi tạo ESP-NOW
     espNow.begin();
