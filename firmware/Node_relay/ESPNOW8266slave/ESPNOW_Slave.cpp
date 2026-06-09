@@ -49,13 +49,13 @@ void ESPNOW_Slave::connectWiFi() {
     Serial.println(GATEWAY_AP_SSID);// Hiển thị SSID của WiFi Gateway
     WiFi.begin(GATEWAY_AP_SSID, GATEWAY_AP_PASS);// Kết nối WiFi Gateway
 
-    int count = 0;// Đếm số lần kết nối
-    while (WiFi.status() != WL_CONNECTED && count < 20) {
-        delay(500);
-        Serial.print(".");
-        count++;
-    }
-    Serial.println();
+    // int count = 0;// Đếm số lần kết nối
+    // while (WiFi.status() != WL_CONNECTED && count < 20) {
+    //     delay(500);
+    //     Serial.print(".");
+    //     count++;
+    // }
+    // Serial.println();
 
     if (WiFi.status() == WL_CONNECTED) {// Kiểm tra kết nối WiFi Gateway
         Serial.println("✅ Kết nối WiFi Gateway thành công!");

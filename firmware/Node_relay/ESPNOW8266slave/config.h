@@ -2,7 +2,7 @@
 #define CONFIG_H
 
 // --- Slave identity --- muốn thêm từng slave chỉ cần đổi ID 
-#define ID 2
+#define ID 1
 
 // --- Gateway (phải trùng softAP trên Server) ---
 #define GATEWAY_AP_SSID   "ESP_SERVER"
